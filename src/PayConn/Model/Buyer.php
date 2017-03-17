@@ -10,6 +10,11 @@ class Buyer
     /**
      * @var string
      */
+    protected $uniqueId;
+
+    /**
+     * @var string
+     */
     protected $name;
 
     /**
@@ -215,5 +220,21 @@ class Buyer
     public function setIpNumber($ipNumber)
     {
         $this->ipNumber = $ipNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUniqueId()
+    {
+        return $this->uniqueId;
+    }
+
+    /**
+     * @param string $uniqueId
+     */
+    public function setUniqueId($uniqueId)
+    {
+        $this->uniqueId = $uniqueId;
     }
 }

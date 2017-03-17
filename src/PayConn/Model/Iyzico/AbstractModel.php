@@ -1,11 +1,13 @@
 <?php
 namespace PayConn\Model\Iyzico;
 
+use PayConn\Model\ModelInterface;
+
 /**
  * Class AbstractModel
  * @package PayConn\Model\Iyzico
  */
-abstract class AbstractModel
+abstract class AbstractModel implements ModelInterface
 {
     /**
      * @var string

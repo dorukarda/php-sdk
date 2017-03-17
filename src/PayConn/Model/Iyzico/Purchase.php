@@ -192,14 +192,15 @@ class Purchase extends AbstractModel implements CreditCardInterface, BuyerInterf
 
     /**
      * Add basket item
+     * @param $id
      * @param $name
      * @param $category
      * @param $price
      * @param string $type
      */
-    public function addBasketItem($name, $category, $price, $type = BasketItemType::PHYSICAL)
+    public function addBasketItem($id, $name, $category, $price, $type = BasketItemType::PHYSICAL)
     {
-        $this->basketItems[] = ['name' => $name, 'category' => $category, 'price' => $price, 'type' => $type];
+        $this->basketItems[] = ['id' => $id, 'name' => $name, 'category' => $category, 'price' => $price, 'type' => $type];
     }
 
     /**
