@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d3cb24924b539300537fe53d8e3188c2",
-    "content-hash": "914f8cee16a8e1b8d2b8e7e46b3b0d5c",
+    "hash": "ecdb2acb680d1f6af0bb3ba1cd7bbfa6",
+    "content-hash": "aa872c8d3184900b784379c055145681",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -184,6 +184,58 @@
                 "url"
             ],
             "time": "2017-02-27 10:51:17"
+        },
+        {
+            "name": "iyzico/iyzipay-php",
+            "version": "v2.0.26",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iyzico/iyzipay-php.git",
+                "reference": "386b6ac854869b935ccd5222d68ba179aa14c330"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iyzico/iyzipay-php/zipball/386b6ac854869b935ccd5222d68ba179aa14c330",
+                "reference": "386b6ac854869b935ccd5222d68ba179aa14c330",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~0.6.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "iyzico and contributors",
+                    "homepage": "https://github.com/iyzico/iyzipay-php/contributors"
+                }
+            ],
+            "description": "iyzipay api php client",
+            "homepage": "https://www.iyzico.com",
+            "keywords": [
+                "iyzico",
+                "iyzico.com",
+                "iyzipay",
+                "iyzipay api",
+                "iyzipay api php",
+                "iyzipay api php client",
+                "iyzipay php",
+                "payment processing"
+            ],
+            "time": "2017-03-07 20:35:40"
         },
         {
             "name": "psr/http-message",
