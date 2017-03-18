@@ -21,7 +21,7 @@ class PurchaseTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->purchase = new Purchase('base url', 'api key', 'secret key');
+        $this->purchase = new Purchase('api key', 'secret key');
     }
 
     /**
@@ -32,7 +32,7 @@ class PurchaseTest extends \PHPUnit_Framework_TestCase
         $this->purchase->setPaidPrice(10);
         $this->purchase->setPrice(10);
         $this->purchase->setInstallment(9);
-        $this->purchase->addBasketItem('product', 'car', 10);
+        $this->purchase->addBasketItem(1, 'product', 'car', 10);
 
         // credit card
         $creditCard = new CreditCard();
@@ -45,7 +45,6 @@ class PurchaseTest extends \PHPUnit_Framework_TestCase
         $this->purchase->setBuyer($buyer);
 
         // gets
-        $this->assertEquals('base url', $this->purchase->getBaseUrl());
         $this->assertEquals('api key', $this->purchase->getApiKey());
         $this->assertEquals('secret key', $this->purchase->getSecretKey());
         $this->assertEquals(10, $this->purchase->getPaidPrice());
@@ -53,6 +52,6 @@ class PurchaseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('holder name', $this->purchase->getCreditCard()->getHolderName());
         $this->assertEquals('buyer name', $this->purchase->getBuyer()->getName());
         $this->assertEquals(Currency::TL, $this->purchase->getCurrency());
-        $this->assertEquals([['name' => 'product', 'category' => 'car', 'price' => 10, 'type' => BasketItemType::PHYSICAL]], $this->purchase->getBasketItems());
+        $this->assertEquals([['id' => 1, 'name' => 'product', 'category' => 'car', 'price' => 10, 'type' => BasketItemType::PHYSICAL]], $this->purchase->getBasketItems());
     }
 }
