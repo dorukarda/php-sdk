@@ -38,7 +38,7 @@ class PurchaseRequest extends AbstractRequest
     {
         // options
         $options = new Options();
-        $options->setBaseUrl($postData->getBaseUrl());
+        $options->setBaseUrl($postData->getEndPoint());
         $options->setApiKey($postData->getApiKey());
         $options->setSecretKey($postData->getSecretKey());
 
