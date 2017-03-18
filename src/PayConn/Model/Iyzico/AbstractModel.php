@@ -12,6 +12,16 @@ abstract class AbstractModel implements ModelInterface
     /**
      * @var string
      */
+    const END_POINT_SANDBOX = 'https://sandbox-api.iyzipay.com';
+
+    /**
+     * @var string
+     */
+    const END_POINT_LIVE = 'https://api.iyzipay.com';
+
+    /**
+     * @var string
+     */
     protected $secretKey;
 
     /**
@@ -20,19 +30,17 @@ abstract class AbstractModel implements ModelInterface
     protected $apiKey;
 
     /**
-     * @var string
+     * @var bool
      */
-    protected $baseUrl;
+    protected $testMode = false;
 
     /**
      * AbstractModel constructor.
-     * @param $baseUrl
      * @param $apiKey
      * @param $secretKey
      */
-    public function __construct($baseUrl, $apiKey, $secretKey)
+    public function __construct($apiKey, $secretKey)
     {
-        $this->setBaseUrl($baseUrl);
         $this->setApiKey($apiKey);
         $this->setSecretKey($secretKey);
     }
@@ -70,19 +78,30 @@ abstract class AbstractModel implements ModelInterface
     }
 
     /**
-     * @return string
+     * @return boolean
      */
-    public function getBaseUrl()
+    public function isTestMode()
     {
-        return $this->baseUrl;
+        return $this->testMode;
     }
 
     /**
-     * @param string $baseUrl
+     * @param boolean $testMode
      */
-    public function setBaseUrl($baseUrl)
+    public function setTestMode($testMode)
     {
-        $this->baseUrl = $baseUrl;
+        $this->testMode = $testMode;
     }
 
+    /**
+     * Get end point
+     * @return string
+     */
+    public function getEndPoint()
+    {
+        if ($this->isTestMode()) {
+            return self::END_POINT_SANDBOX;
+        }
+        return self::END_POINT_LIVE;
+    }
 }

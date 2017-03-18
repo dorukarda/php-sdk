@@ -7,5 +7,9 @@ namespace PayConn\Model;
  */
 interface ModelInterface
 {
+    public function getEndPoint();
 
+    public function isTestMode();
+
+    public function setTestMode($testMode);
 }

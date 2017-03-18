@@ -29,16 +29,16 @@ $buyer->setPhone('1234567');
 $buyer->setZipCode('123456');
 
 // purchase
-$baseUrl = 'https://sandbox-api.iyzipay.com';
 $apiKey = 'sandbox-aLgHT3OaxXOvrVc8pF24Z8PSIrKy6bJo';
 $secretKey = 'sandbox-ohMKVD6DGjmPLiR6WTdaN5kkMy1Eh7Rq';
-$purchase = new Purchase($baseUrl, $apiKey, $secretKey);
+$purchase = new Purchase($apiKey, $secretKey);
 $purchase->setCreditCard($creditCard);
 $purchase->setBuyer($buyer);
 $purchase->setInstallment(1);
 $purchase->setPaidPrice(10);
 $purchase->setPrice(10);
 $purchase->addBasketItem(9, 'Apple', 'Fruit', 10);
+$purchase->setTestMode(true);
 
 // request
 $request = new PurchaseRequest();
