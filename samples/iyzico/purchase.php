@@ -41,9 +41,8 @@ $purchase->addBasketItem(9, 'Apple', 'Fruit', 10);
 $purchase->setTestMode(true);
 
 // request
-$request = new PurchaseRequest();
-$postData = $request->prepare($purchase);
-$response = $request->send($postData);
+$request = new PurchaseRequest($purchase);
+$response = $request->send();
 echo "Is Successful : " . $response->isSuccessful();
 echo "Message : " . $response->getMessage();
 echo "Code : " . $response->getCode();

@@ -7,10 +7,9 @@ use Iyzipay\Model\Buyer;
 use Iyzipay\Model\Locale;
 use Iyzipay\Model\Payment;
 use Iyzipay\Model\PaymentCard;
-use Iyzipay\Options;
+use Iyzipay\Request;
 use Iyzipay\Request\CreatePaymentRequest;
 use PayConn\Model\Iyzico\Purchase;
-use PayConn\Model\ModelInterface;
 use PayConn\Request\AbstractRequest;
 use PayConn\Response\Iyzico\PurchaseResponse;
 
@@ -21,40 +20,27 @@ use PayConn\Response\Iyzico\PurchaseResponse;
 class PurchaseRequest extends AbstractRequest
 {
     /**
-     * @param ModelInterface $model
-     * @return Purchase
+     * Prepare
+     * @return CreatePaymentRequest
      */
-    public function prepare(ModelInterface $model)
+    public function prepare()
     {
-        return $model;
-    }
-
-    /**
-     * Send
-     * @param Purchase $postData
-     * @return PurchaseResponse
-     */
-    public function send($postData)
-    {
-        // options
-        $options = new Options();
-        $options->setBaseUrl($postData->getEndPoint());
-        $options->setApiKey($postData->getApiKey());
-        $options->setSecretKey($postData->getSecretKey());
+        /** @var Purchase $model */
+        $model = $this->getModel();
 
         // request
         $request = new CreatePaymentRequest();
         $request->setLocale(Locale::TR);
-        $request->setPrice($postData->getPrice());
-        $request->setPaidPrice($postData->getPaidPrice());
-        $request->setCurrency($postData->getCurrency());
-        $request->setInstallment($postData->getInstallment());
-        $request->setPaymentChannel($postData->getPaymentChannel());
-        $request->setPaymentGroup($postData->getPaymentGroup());
+        $request->setPrice($model->getPrice());
+        $request->setPaidPrice($model->getPaidPrice());
+        $request->setCurrency($model->getCurrency());
+        $request->setInstallment($model->getInstallment());
+        $request->setPaymentChannel($model->getPaymentChannel());
+        $request->setPaymentGroup($model->getPaymentGroup());
 
         // basket items
         $basketItems = [];
-        foreach ($postData->getBasketItems() as $basketItemData) {
+        foreach ($model->getBasketItems() as $basketItemData) {
             $basketItem = new BasketItem();
             $basketItem->setId($basketItemData['id']);
             $basketItem->setName($basketItemData['name']);
@@ -67,49 +53,74 @@ class PurchaseRequest extends AbstractRequest
 
         // credit card
         $paymentCard = new PaymentCard();
-        $paymentCard->setCardHolderName($postData->getCreditCard()->getHolderName());
-        $paymentCard->setCardNumber($postData->getCreditCard()->getNumber());
-        $paymentCard->setExpireMonth($postData->getCreditCard()->getExpiryMonth());
-        $paymentCard->setExpireYear($postData->getCreditCard()->getExpiryYear());
-        $paymentCard->setCvc($postData->getCreditCard()->getCvv());
+        $paymentCard->setCardHolderName($model->getCreditCard()->getHolderName());
+        $paymentCard->setCardNumber($model->getCreditCard()->getNumber());
+        $paymentCard->setExpireMonth($model->getCreditCard()->getExpiryMonth());
+        $paymentCard->setExpireYear($model->getCreditCard()->getExpiryYear());
+        $paymentCard->setCvc($model->getCreditCard()->getCvv());
         $paymentCard->setRegisterCard(0);
         $request->setPaymentCard($paymentCard);
 
         // buyer
         $buyer = new Buyer();
-        $buyer->setId($postData->getBuyer()->getUniqueId());
-        $buyer->setName($postData->getBuyer()->getName());
-        $buyer->setSurname($postData->getBuyer()->getSurname());
-        $buyer->setGsmNumber($postData->getBuyer()->getPhone());
-        $buyer->setEmail($postData->getBuyer()->getEmail());
-        $buyer->setIdentityNumber($postData->getBuyer()->getIdentityNumber());
-        $buyer->setRegistrationAddress($postData->getBuyer()->getAddress());
-        $buyer->setIp($postData->getBuyer()->getIpNumber());
-        $buyer->setCity($postData->getBuyer()->getCity());
-        $buyer->setCountry($postData->getBuyer()->getCountry());
-        $buyer->setZipCode($postData->getBuyer()->getZipCode());
+        $buyer->setId($model->getBuyer()->getUniqueId());
+        $buyer->setName($model->getBuyer()->getName());
+        $buyer->setSurname($model->getBuyer()->getSurname());
+        $buyer->setGsmNumber($model->getBuyer()->getPhone());
+        $buyer->setEmail($model->getBuyer()->getEmail());
+        $buyer->setIdentityNumber($model->getBuyer()->getIdentityNumber());
+        $buyer->setRegistrationAddress($model->getBuyer()->getAddress());
+        $buyer->setIp($model->getBuyer()->getIpNumber());
+        $buyer->setCity($model->getBuyer()->getCity());
+        $buyer->setCountry($model->getBuyer()->getCountry());
+        $buyer->setZipCode($model->getBuyer()->getZipCode());
         $request->setBuyer($buyer);
 
         // shipping address
         $shippingAddress = new Address();
-        $shippingAddress->setContactName($postData->getBuyer()->getName() . ' ' . $postData->getBuyer()->getSurname());
-        $shippingAddress->setCity($postData->getBuyer()->getCity());
-        $shippingAddress->setCountry($postData->getBuyer()->getCountry());
-        $shippingAddress->setAddress($postData->getBuyer()->getAddress());
-        $shippingAddress->setZipCode($postData->getBuyer()->getZipCode());
+        $shippingAddress->setContactName($model->getBuyer()->getName() . ' ' . $model->getBuyer()->getSurname());
+        $shippingAddress->setCity($model->getBuyer()->getCity());
+        $shippingAddress->setCountry($model->getBuyer()->getCountry());
+        $shippingAddress->setAddress($model->getBuyer()->getAddress());
+        $shippingAddress->setZipCode($model->getBuyer()->getZipCode());
         $request->setShippingAddress($shippingAddress);
 
         // billing address
         $billingAddress = new Address();
-        $billingAddress->setContactName($postData->getBuyer()->getName() . ' ' . $postData->getBuyer()->getSurname());
-        $billingAddress->setCity($postData->getBuyer()->getCity());
-        $billingAddress->setCountry($postData->getBuyer()->getCountry());
-        $billingAddress->setAddress($postData->getBuyer()->getAddress());
-        $billingAddress->setZipCode($postData->getBuyer()->getZipCode());
+        $billingAddress->setContactName($model->getBuyer()->getName() . ' ' . $model->getBuyer()->getSurname());
+        $billingAddress->setCity($model->getBuyer()->getCity());
+        $billingAddress->setCountry($model->getBuyer()->getCountry());
+        $billingAddress->setAddress($model->getBuyer()->getAddress());
+        $billingAddress->setZipCode($model->getBuyer()->getZipCode());
         $request->setBillingAddress($billingAddress);
 
+        return $request;
+    }
+
+    /**
+     * @return PurchaseResponse
+     */
+    public function send()
+    {
+        /** @var Purchase $model */
+        $model = $this->getModel();
+        $postData = $this->prepare();
+
         // send
-        $payment = Payment::create($request, $options);
+        $payment = $this->request($postData, $model);
         return new PurchaseResponse(json_decode($payment->getRawResult(), true));
+    }
+
+    /**
+     * Request
+     * @param CreatePaymentRequest $postData
+     * @param Purchase $model
+     * @return mixed
+     */
+    protected function request(CreatePaymentRequest $postData, Purchase $model)
+    {
+        $payment = Payment::create($postData, $model->getOptions());
+
+        return $payment;
     }
 }

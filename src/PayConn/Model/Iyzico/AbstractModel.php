@@ -1,6 +1,7 @@
 <?php
 namespace PayConn\Model\Iyzico;
 
+use Iyzipay\Options;
 use PayConn\Model\ModelInterface;
 
 /**
@@ -103,5 +104,19 @@ abstract class AbstractModel implements ModelInterface
             return self::END_POINT_SANDBOX;
         }
         return self::END_POINT_LIVE;
+    }
+
+    /**
+     * Get options
+     * @return Options
+     */
+    public function getOptions()
+    {
+        $options = new Options();
+        $options->setBaseUrl($this->getEndPoint());
+        $options->setApiKey($this->getApiKey());
+        $options->setSecretKey($this->getSecretKey());
+
+        return $options;
     }
 }
