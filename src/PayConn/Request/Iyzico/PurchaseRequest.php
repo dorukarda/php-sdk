@@ -40,13 +40,13 @@ class PurchaseRequest extends AbstractRequest
 
         // basket items
         $basketItems = [];
-        foreach ($model->getBasketItems() as $basketItemData) {
+        foreach ($model->getBasketItems() as $basketItemModel) {
             $basketItem = new BasketItem();
-            $basketItem->setId($basketItemData['id']);
-            $basketItem->setName($basketItemData['name']);
-            $basketItem->setCategory1($basketItemData['category']);
-            $basketItem->setItemType($basketItemData['type']);
-            $basketItem->setPrice($basketItemData['price']);
+            $basketItem->setId($basketItemModel->getId());
+            $basketItem->setName($basketItemModel->getName());
+            $basketItem->setCategory1($basketItemModel->getCategory());
+            $basketItem->setItemType($basketItemModel->getType());
+            $basketItem->setPrice($basketItemModel->getPrice());
             $basketItems[] = $basketItem;
         }
         $request->setBasketItems($basketItems);

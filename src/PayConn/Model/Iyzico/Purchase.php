@@ -1,7 +1,6 @@
 <?php
 namespace PayConn\Model\Iyzico;
 
-use Iyzipay\Model\BasketItemType;
 use Iyzipay\Model\Currency;
 use Iyzipay\Model\PaymentChannel;
 use Iyzipay\Model\PaymentGroup;
@@ -9,6 +8,7 @@ use PayConn\Model\Buyer;
 use PayConn\Model\BuyerInterface;
 use PayConn\Model\CreditCard;
 use PayConn\Model\CreditCardInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Purchase
@@ -18,26 +18,38 @@ class Purchase extends AbstractModel implements CreditCardInterface, BuyerInterf
 {
     /**
      * @var CreditCard
+     *
+     * @Assert\NotBlank
+     * @Assert\Valid
      */
     protected $creditCard;
 
     /**
      * @var Buyer
+     *
+     * @Assert\NotBlank
+     * @Assert\Valid
      */
     protected $buyer;
 
     /**
      * @var float
+     *
+     * @Assert\NotBlank
      */
     protected $price;
 
     /**
      * @var float
+     *
+     * @Assert\NotBlank
      */
     protected $paidPrice;
 
     /**
      * @var integer
+     *
+     * @Assert\NotBlank
      */
     protected $installment;
 
@@ -57,10 +69,12 @@ class Purchase extends AbstractModel implements CreditCardInterface, BuyerInterf
     protected $paymentGroup = PaymentGroup::PRODUCT;
 
     /**
-     * @var array
+     * @var BasketItem[]
+     *
+     * @Assert\NotBlank
+     * @Assert\Valid
      */
     protected $basketItems;
-
 
     /**
      * @return CreditCard
@@ -191,21 +205,17 @@ class Purchase extends AbstractModel implements CreditCardInterface, BuyerInterf
     }
 
     /**
-     * Add basket item
-     * @param $id
-     * @param $name
-     * @param $category
-     * @param $price
-     * @param string $type
+     * Add BasketItem
+     * @param BasketItem $basketItem
      */
-    public function addBasketItem($id, $name, $category, $price, $type = BasketItemType::PHYSICAL)
+    public function addBasketItem(BasketItem $basketItem)
     {
-        $this->basketItems[] = ['id' => $id, 'name' => $name, 'category' => $category, 'price' => $price, 'type' => $type];
+        $this->basketItems[] = $basketItem;
     }
 
     /**
      * Get basket items
-     * @return array
+     * @return BasketItem[]
      */
     public function getBasketItems()
     {

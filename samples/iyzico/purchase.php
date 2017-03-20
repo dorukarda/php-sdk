@@ -5,6 +5,7 @@ use PayConn\Model\Iyzico\Purchase;
 use PayConn\Model\CreditCard;
 use PayConn\Model\Buyer;
 use PayConn\Request\Iyzico\PurchaseRequest;
+use PayConn\Model\Iyzico\BasketItem;
 
 // credit card
 $creditCard = new CreditCard();
@@ -28,6 +29,13 @@ $buyer->setIpNumber('127.0.0.1');
 $buyer->setPhone('1234567');
 $buyer->setZipCode('123456');
 
+// basket item
+$basketItem = new BasketItem();
+$basketItem->setId(1);
+$basketItem->setName('Apple');
+$basketItem->setCategory('Fruit');
+$basketItem->setPrice(10);
+
 // purchase
 $apiKey = 'sandbox-aLgHT3OaxXOvrVc8pF24Z8PSIrKy6bJo';
 $secretKey = 'sandbox-ohMKVD6DGjmPLiR6WTdaN5kkMy1Eh7Rq';
@@ -37,7 +45,7 @@ $purchase->setBuyer($buyer);
 $purchase->setInstallment(1);
 $purchase->setPaidPrice(10);
 $purchase->setPrice(10);
-$purchase->addBasketItem(9, 'Apple', 'Fruit', 10);
+$purchase->addBasketItem($basketItem);
 $purchase->setTestMode(true);
 
 // request

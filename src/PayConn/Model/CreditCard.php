@@ -1,6 +1,8 @@
 <?php
 namespace PayConn\Model;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Class CreditCard
  * @package PayConn\Model
@@ -9,26 +11,36 @@ class CreditCard
 {
     /**
      * @var string
+     *
+     * @Assert\NotBlank
      */
     private $holderName;
 
     /**
      * @var integer
+     *
+     * @Assert\NotBlank
      */
     private $number;
 
     /**
      * @var integer
+     *
+     * @Assert\NotBlank
      */
     private $expiryMonth;
 
     /**
      * @var integer
+     *
+     * @Assert\NotBlank
      */
     private $expiryYear;
 
     /**
      * @var integer
+     *
+     * @Assert\NotBlank
      */
     private $cvv;
 

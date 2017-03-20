@@ -2,6 +2,8 @@
 namespace PayConn\Request;
 
 use PayConn\Model\ModelInterface;
+use PayConn\ModelValidator;
+use PayConn\ValidationException;
 
 /**
  * Class AbstractRequest
@@ -22,6 +24,7 @@ abstract class AbstractRequest implements RequestInterface
     public function __construct(ModelInterface $model)
     {
         $this->setModel($model);
+        $this->validate();
     }
 
     /**
@@ -38,5 +41,18 @@ abstract class AbstractRequest implements RequestInterface
     public function setModel(ModelInterface $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * Validate
+     * @throws ValidationException
+     */
+    public function validate()
+    {
+        $modelValidator = new ModelValidator($this->getModel());
+        $errors = $modelValidator->validate();
+        if ($errors !== null) {
+            throw new ValidationException($errors);
+        }
     }
 }
