@@ -1,10 +1,10 @@
 <?php
 namespace PayConn\Tests\Model\Iyzico;
 
-use Iyzipay\Model\BasketItemType;
 use Iyzipay\Model\Currency;
 use PayConn\Model\Buyer;
 use PayConn\Model\CreditCard;
+use PayConn\Model\Iyzico\BasketItem;
 use PayConn\Model\Iyzico\Purchase;
 
 /**
@@ -32,7 +32,6 @@ class PurchaseTest extends \PHPUnit_Framework_TestCase
         $this->purchase->setPaidPrice(10);
         $this->purchase->setPrice(10);
         $this->purchase->setInstallment(9);
-        $this->purchase->addBasketItem(1, 'product', 'car', 10);
 
         // credit card
         $creditCard = new CreditCard();
@@ -44,6 +43,14 @@ class PurchaseTest extends \PHPUnit_Framework_TestCase
         $buyer->setName('buyer name');
         $this->purchase->setBuyer($buyer);
 
+        // basket item
+        $basketItem = new BasketItem();
+        $basketItem->setId(1);
+        $basketItem->setName('product');
+        $basketItem->setCategory('car');
+        $basketItem->setPrice(10);
+        $this->purchase->addBasketItem($basketItem);
+
         // gets
         $this->assertEquals('api key', $this->purchase->getApiKey());
         $this->assertEquals('secret key', $this->purchase->getSecretKey());
@@ -52,6 +59,6 @@ class PurchaseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('holder name', $this->purchase->getCreditCard()->getHolderName());
         $this->assertEquals('buyer name', $this->purchase->getBuyer()->getName());
         $this->assertEquals(Currency::TL, $this->purchase->getCurrency());
-        $this->assertEquals([['id' => 1, 'name' => 'product', 'category' => 'car', 'price' => 10, 'type' => BasketItemType::PHYSICAL]], $this->purchase->getBasketItems());
+        $this->assertEquals([$basketItem], $this->purchase->getBasketItems());
     }
 }
