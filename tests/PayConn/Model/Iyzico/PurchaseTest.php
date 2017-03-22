@@ -4,7 +4,7 @@ namespace PayConn\Tests\Model\Iyzico;
 use Iyzipay\Model\Currency;
 use PayConn\Model\Buyer;
 use PayConn\Model\CreditCard;
-use PayConn\Model\Iyzico\BasketItem;
+use PayConn\Model\Iyzico\Purchase\BasketItem;
 use PayConn\Model\Iyzico\Purchase;
 
 /**

@@ -8,6 +8,7 @@ use PayConn\Model\Buyer;
 use PayConn\Model\BuyerInterface;
 use PayConn\Model\CreditCard;
 use PayConn\Model\CreditCardInterface;
+use PayConn\Model\Iyzico\Purchase\BasketItem;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

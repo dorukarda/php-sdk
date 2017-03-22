@@ -1,12 +1,12 @@
 <?php
-namespace PayConn\Model\Iyzico;
+namespace PayConn\Model\Iyzico\Purchase;
 
 use Iyzipay\Model\BasketItemType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class BasketItem
- * @package PayConn\Model\Iyzico
+ * @package PayConn\Model\Iyzico\Purchase
  */
 class BasketItem
 {

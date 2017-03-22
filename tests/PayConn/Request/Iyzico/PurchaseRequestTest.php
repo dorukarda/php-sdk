@@ -4,7 +4,7 @@ namespace PayConn\Tests\Request\Iyzico;
 use Iyzipay\Model\Payment;
 use PayConn\Model\Buyer;
 use PayConn\Model\CreditCard;
-use PayConn\Model\Iyzico\BasketItem;
+use PayConn\Model\Iyzico\Purchase\BasketItem;
 use PayConn\Model\Iyzico\Purchase;
 use PayConn\Request\Iyzico\PurchaseRequest;
 

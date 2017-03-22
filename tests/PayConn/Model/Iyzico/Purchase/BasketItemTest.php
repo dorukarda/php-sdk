@@ -2,7 +2,7 @@
 namespace PayConn\Tests\Request\Iyzico;
 
 use Iyzipay\Model\BasketItemType;
-use PayConn\Model\Iyzico\BasketItem;
+use PayConn\Model\Iyzico\Purchase\BasketItem;
 
 /**
  * Class BasketItemTest
