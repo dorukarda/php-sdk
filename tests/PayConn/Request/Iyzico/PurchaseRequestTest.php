@@ -19,21 +19,21 @@ class PurchaseRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testPrepare()
     {
-        $prepareRequest = $this->getMockBuilder(PurchaseRequest::class)
+        $request = $this->getMockBuilder(PurchaseRequest::class)
             ->setMethods(['getModel'])
             ->disableOriginalConstructor()
             ->getMock();
 
         // mock getModel
-        $prepareRequest->expects($this->any())->method('getModel')->willReturn($this->getDummyPurchaseModel());
+        $request->expects($this->any())->method('getModel')->willReturn($this->getDummyModel());
 
         // request
-        $createPaymentRequest = $prepareRequest->prepare();
-        $this->assertEquals($createPaymentRequest->getPrice(), $this->getDummyPurchaseModel()->getPrice());
-        $this->assertEquals($createPaymentRequest->getBuyer()->getName(), $this->getDummyPurchaseModel()->getBuyer()->getName());
-        $this->assertEquals($createPaymentRequest->getPaymentCard()->getCardNumber(), $this->getDummyPurchaseModel()->getCreditCard()->getNumber());
-        $this->assertEquals($createPaymentRequest->getShippingAddress()->getZipCode(), $this->getDummyPurchaseModel()->getBuyer()->getZipCode());
-        $this->assertEquals($createPaymentRequest->getBasketItems()[0]->getName(), $this->getDummyPurchaseModel()->getBasketItems()[0]->getName());
+        $createPaymentRequest = $request->prepare();
+        $this->assertEquals($createPaymentRequest->getPrice(), $this->getDummyModel()->getPrice());
+        $this->assertEquals($createPaymentRequest->getBuyer()->getName(), $this->getDummyModel()->getBuyer()->getName());
+        $this->assertEquals($createPaymentRequest->getPaymentCard()->getCardNumber(), $this->getDummyModel()->getCreditCard()->getNumber());
+        $this->assertEquals($createPaymentRequest->getShippingAddress()->getZipCode(), $this->getDummyModel()->getBuyer()->getZipCode());
+        $this->assertEquals($createPaymentRequest->getBasketItems()[0]->getName(), $this->getDummyModel()->getBasketItems()[0]->getName());
     }
 
     /**
@@ -41,21 +41,21 @@ class PurchaseRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testSend()
     {
-        $prepareRequest = $this->getMockBuilder(PurchaseRequest::class)
+        $request = $this->getMockBuilder(PurchaseRequest::class)
             ->setMethods(['getModel', 'request'])
             ->disableOriginalConstructor()
             ->getMock();
 
         // mock getModel
-        $prepareRequest->expects($this->any())->method('getModel')->willReturn($this->getDummyPurchaseModel());
+        $request->expects($this->any())->method('getModel')->willReturn($this->getDummyModel());
 
         // mock request
         $payment = new Payment();
         $payment->setRawResult(json_encode(['status' => 'success', 'paymentId' => '123']));
-        $prepareRequest->expects($this->any())->method('request')->willReturn($payment);
+        $request->expects($this->any())->method('request')->willReturn($payment);
 
         // send
-        $response = $prepareRequest->send();
+        $response = $request->send();
         $this->assertEquals(true, $response->isSuccessful());
     }
 
@@ -63,7 +63,7 @@ class PurchaseRequestTest extends \PHPUnit_Framework_TestCase
      * Get dummy purchase model
      * @return Purchase
      */
-    private function getDummyPurchaseModel()
+    private function getDummyModel()
     {
         // credit card
         $creditCard = new CreditCard();
@@ -97,15 +97,15 @@ class PurchaseRequestTest extends \PHPUnit_Framework_TestCase
         // purchase
         $apiKey = 'sandbox-aLgHT3OaxXOvrVc8pF24Z8PSIrKy6bJo';
         $secretKey = 'sandbox-ohMKVD6DGjmPLiR6WTdaN5kkMy1Eh7Rq';
-        $purchase = new Purchase($apiKey, $secretKey);
-        $purchase->setCreditCard($creditCard);
-        $purchase->setBuyer($buyer);
-        $purchase->setInstallment(1);
-        $purchase->setPaidPrice(10);
-        $purchase->setPrice(10);
-        $purchase->addBasketItem($basketItem);
-        $purchase->setTestMode(true);
+        $model = new Purchase($apiKey, $secretKey);
+        $model->setCreditCard($creditCard);
+        $model->setBuyer($buyer);
+        $model->setInstallment(1);
+        $model->setPaidPrice(10);
+        $model->setPrice(10);
+        $model->addBasketItem($basketItem);
+        $model->setTestMode(true);
 
-        return $purchase;
+        return $model;
     }
 }
