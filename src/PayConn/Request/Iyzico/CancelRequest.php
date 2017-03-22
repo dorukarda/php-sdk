@@ -49,13 +49,13 @@ class CancelRequest extends AbstractRequest
     /**
      * Request
      * @param CreateCancelRequest $postData
-     * @param Cancel $cancel
+     * @param Cancel $model
      * @return IyzicoCancel|Cancel
      */
-    protected function request(CreateCancelRequest $postData, Cancel $cancel)
+    protected function request(CreateCancelRequest $postData, Cancel $model)
     {
-        $cancel = IyzicoCancel::create($postData, $cancel->getOptions());
+        $responseModel = IyzicoCancel::create($postData, $model->getOptions());
 
-        return $cancel;
+        return $responseModel;
     }
 }

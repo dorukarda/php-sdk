@@ -119,8 +119,8 @@ class PurchaseRequest extends AbstractRequest
      */
     protected function request(CreatePaymentRequest $postData, Purchase $model)
     {
-        $payment = Payment::create($postData, $model->getOptions());
+        $responseModel = Payment::create($postData, $model->getOptions());
 
-        return $payment;
+        return $responseModel;
     }
 }
