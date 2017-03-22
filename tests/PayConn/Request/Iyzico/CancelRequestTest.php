@@ -16,16 +16,16 @@ class CancelRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testPrepare()
     {
-        $cancelRequest = $this->getMockBuilder(CancelRequest::class)
+        $request = $this->getMockBuilder(CancelRequest::class)
             ->setMethods(['getModel'])
             ->disableOriginalConstructor()
             ->getMock();
 
         // mock getModel
-        $cancelRequest->expects($this->any())->method('getModel')->willReturn($this->getDummyCancelModel());
+        $request->expects($this->any())->method('getModel')->willReturn($this->getDummyModel());
 
         // request
-        $createCancelRequest = $cancelRequest->prepare();
+        $createCancelRequest = $request->prepare();
         $this->assertEquals('127.0.0.1', $createCancelRequest->getIp());
         $this->assertEquals(999, $createCancelRequest->getPaymentId());
     }
@@ -35,21 +35,21 @@ class CancelRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testSend()
     {
-        $cancelRequest = $this->getMockBuilder(CancelRequest::class)
+        $request = $this->getMockBuilder(CancelRequest::class)
             ->setMethods(['getModel', 'request'])
             ->disableOriginalConstructor()
             ->getMock();
 
         // mock getModel
-        $cancelRequest->expects($this->any())->method('getModel')->willReturn($this->getDummyCancelModel());
+        $request->expects($this->any())->method('getModel')->willReturn($this->getDummyModel());
 
         // mock request
         $cancel = new IyzicoCancel();
         $cancel->setRawResult(json_encode(['status' => 'success']));
-        $cancelRequest->expects($this->any())->method('request')->willReturn($cancel);
+        $request->expects($this->any())->method('request')->willReturn($cancel);
 
         // send
-        $response = $cancelRequest->send();
+        $response = $request->send();
         $this->assertEquals(true, $response->isSuccessful());
     }
 
@@ -57,12 +57,12 @@ class CancelRequestTest extends \PHPUnit_Framework_TestCase
      * Get dummy cancel model
      * @return Cancel
      */
-    private function getDummyCancelModel()
+    private function getDummyModel()
     {
-        $cancel = new Cancel('api key', 'secret key');
-        $cancel->setIpAddress('127.0.0.1');
-        $cancel->setPaymentId(999);
+        $model = new Cancel('api key', 'secret key');
+        $model->setIpAddress('127.0.0.1');
+        $model->setPaymentId(999);
 
-        return $cancel;
+        return $model;
     }
 }
