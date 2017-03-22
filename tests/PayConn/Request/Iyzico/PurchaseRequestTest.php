@@ -1,6 +1,7 @@
 <?php
 namespace PayConn\Tests\Request\Iyzico;
 
+use Iyzipay\Model\Payment;
 use PayConn\Model\Buyer;
 use PayConn\Model\CreditCard;
 use PayConn\Model\Iyzico\BasketItem;
@@ -33,6 +34,29 @@ class PurchaseRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($createPaymentRequest->getPaymentCard()->getCardNumber(), $this->getDummyPurchaseModel()->getCreditCard()->getNumber());
         $this->assertEquals($createPaymentRequest->getShippingAddress()->getZipCode(), $this->getDummyPurchaseModel()->getBuyer()->getZipCode());
         $this->assertEquals($createPaymentRequest->getBasketItems()[0]->getName(), $this->getDummyPurchaseModel()->getBasketItems()[0]->getName());
+    }
+
+    /**
+     * Test send
+     */
+    public function testSend()
+    {
+        $prepareRequest = $this->getMockBuilder(PurchaseRequest::class)
+            ->setMethods(['getModel', 'request'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // mock getModel
+        $prepareRequest->expects($this->any())->method('getModel')->willReturn($this->getDummyPurchaseModel());
+
+        // mock request
+        $payment = new Payment();
+        $payment->setRawResult(json_encode(['status' => 'success', 'paymentId' => '123']));
+        $prepareRequest->expects($this->any())->method('request')->willReturn($payment);
+
+        // send
+        $response = $prepareRequest->send();
+        $this->assertEquals(true, $response->isSuccessful());
     }
 
     /**
