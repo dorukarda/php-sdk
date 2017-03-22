@@ -1,39 +1,29 @@
 <?php
 namespace PayConn\Response;
 
+use \ArrayIterator;
+
 /**
  * Class AbstractResponse
  * @package PayConn\Response
  */
-abstract class AbstractResponse implements ResponseInterface
+abstract class AbstractResponse extends ArrayIterator implements ResponseInterface
 {
-    /**
-     * @var array
-     */
-    protected $data;
-
     /**
      * AbstractResponse constructor.
      * @param $data
      */
     public function __construct($data)
     {
-        $this->setData($data);
+        parent::__construct($data);
     }
 
     /**
+     * To array
      * @return array
      */
-    public function getData()
+    public function toArray()
     {
-        return $this->data;
-    }
-
-    /**
-     * @param array $data
-     */
-    public function setData($data)
-    {
-        $this->data = $data;
+        return $this->getArrayCopy();
     }
 }

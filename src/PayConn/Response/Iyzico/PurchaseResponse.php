@@ -15,7 +15,7 @@ class PurchaseResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
-        if ($this->getData()['status'] === 'success') {
+        if ($this->offsetGet('status') === 'success') {
             return true;
         }
         return false;
@@ -30,7 +30,7 @@ class PurchaseResponse extends AbstractResponse
         if ($this->isSuccessful()) {
             return null;
         }
-        return $this->getData()['errorMessage'];
+        return $this->offsetGet('errorMessage');
     }
 
     /**
@@ -42,16 +42,7 @@ class PurchaseResponse extends AbstractResponse
         if ($this->isSuccessful()) {
             return null;
         }
-        return $this->getData()['errorCode'];
-    }
-
-    /**
-     * Get response
-     * @return array
-     */
-    public function getResponse()
-    {
-        return $this->getData();
+        return $this->offsetGet('errorCode');
     }
 
     /**
@@ -63,6 +54,6 @@ class PurchaseResponse extends AbstractResponse
         if (!$this->isSuccessful()) {
             return null;
         }
-        return $this->getData()['paymentId'];
+        return $this->offsetGet('paymentId');
     }
 }

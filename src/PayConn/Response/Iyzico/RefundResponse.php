@@ -15,7 +15,7 @@ class RefundResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
-        if ($this->getData()['status'] === 'success') {
+        if ($this->offsetGet('status') === 'success') {
             return true;
         }
         return false;
@@ -30,7 +30,7 @@ class RefundResponse extends AbstractResponse
         if ($this->isSuccessful()) {
             return null;
         }
-        return $this->getData()['errorMessage'];
+        return $this->offsetGet('errorMessage');
     }
 
     /**
@@ -42,27 +42,6 @@ class RefundResponse extends AbstractResponse
         if ($this->isSuccessful()) {
             return null;
         }
-        return $this->getData()['errorCode'];
-    }
-
-    /**
-     * Get response
-     * @return array
-     */
-    public function getResponse()
-    {
-        return $this->getData();
-    }
-
-    /**
-     * Get reference id
-     * @return null
-     */
-    public function getReferenceId()
-    {
-        if (!$this->isSuccessful()) {
-            return null;
-        }
-        return $this->getData()['paymentId'];
+        return $this->offsetGet('errorCode');
     }
 }

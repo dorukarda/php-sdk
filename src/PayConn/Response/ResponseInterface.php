@@ -12,12 +12,4 @@ interface ResponseInterface
     public function getMessage();
 
     public function getCode();
-
-    public function getReferenceId();
-
-    public function getResponse();
-
-    public function setData($data);
-
-    public function getData();
 }
