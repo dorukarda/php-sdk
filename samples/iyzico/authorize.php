@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use PayConn\Model\Iyzico\Purchase;
+use PayConn\Model\Iyzico\Authorize;
 use PayConn\Model\CreditCard;
 use PayConn\Model\Buyer;
-use PayConn\Request\Iyzico\PurchaseRequest;
+use PayConn\Request\Iyzico\AuthorizeRequest;
 use PayConn\Model\Iyzico\Purchase\BasketItem;
 
 // credit card
@@ -39,19 +39,20 @@ $basketItem->setPrice(10);
 // purchase
 $apiKey = 'sandbox-aLgHT3OaxXOvrVc8pF24Z8PSIrKy6bJo';
 $secretKey = 'sandbox-ohMKVD6DGjmPLiR6WTdaN5kkMy1Eh7Rq';
-$purchase = new Purchase($apiKey, $secretKey);
-$purchase->setCreditCard($creditCard);
-$purchase->setBuyer($buyer);
-$purchase->setInstallment(1);
-$purchase->setPaidPrice(10);
-$purchase->setPrice(10);
-$purchase->addBasketItem($basketItem);
-$purchase->setTestMode(true);
+$authorize = new Authorize($apiKey, $secretKey);
+$authorize->setCreditCard($creditCard);
+$authorize->setBuyer($buyer);
+$authorize->setInstallment(1);
+$authorize->setPaidPrice(10);
+$authorize->setPrice(10);
+$authorize->addBasketItem($basketItem);
+$authorize->setCallbackUrl('http://your-domain.com/callback');
+$authorize->setTestMode(true);
 
 // request
-$request = new PurchaseRequest($purchase);
+$request = new AuthorizeRequest($authorize);
 $response = $request->send();
 echo "Is Successful : " . $response->isSuccessful();
 echo "Message : " . $response->getMessage();
 echo "Code : " . $response->getCode();
-echo "Reference ID : " . $response->getReferenceId();
+echo "HTML Content : " . $response->getHtmlContent();
