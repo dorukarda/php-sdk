@@ -19,6 +19,6 @@ composer require payconn/php-sdk
 The following gateways are available:
 
 Gateway | Features
---- | --- | ---
+--- | ---
 [iyzico](https://github.com/payconn/php-sdk) | Purchase, Cancel, Refund, Query, 3D
 
