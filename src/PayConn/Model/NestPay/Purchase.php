@@ -1,8 +1,6 @@
 <?php
 namespace PayConn\Model\NestPay;
 
-use PayConn\Model\Buyer;
-use PayConn\Model\BuyerInterface;
 use PayConn\Model\CreditCard;
 use PayConn\Model\CreditCardInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -11,15 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class AbstractPurchase
  * @package PayConn\Model\NestPay
  */
-abstract class AbstractPurchase extends AbstractModel implements CreditCardInterface, BuyerInterface
+class Purchase extends AbstractModel implements CreditCardInterface
 {
-    /**
-     * @var Buyer
-     *
-     * @Assert\Valid
-     */
-    protected $buyer;
-
     /**
      * @var CreditCard
      *
@@ -47,23 +38,7 @@ abstract class AbstractPurchase extends AbstractModel implements CreditCardInter
      *
      * @Assert\NotBlank
      */
-    protected $currency = 949;
-
-    /**
-     * @return Buyer
-     */
-    public function getBuyer()
-    {
-        return $this->buyer;
-    }
-
-    /**
-     * @param Buyer $buyer
-     */
-    public function setBuyer(Buyer $buyer)
-    {
-        $this->buyer = $buyer;
-    }
+    protected $currency;
 
     /**
      * @return CreditCard

@@ -2,6 +2,7 @@
 namespace PayConn\Model\NestPay;
 
 use PayConn\Model\ModelInterface;
+use PayConn\Model\NestPay\Banks\BankInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -69,13 +70,22 @@ abstract class AbstractModel implements ModelInterface
     protected $type;
 
     /**
+     * @var BankInterface
+     *
+     * @Assert\NotBlank
+     */
+    protected $bank;
+
+    /**
      * AbstractModel constructor.
+     * @param BankInterface $bank
      * @param $merchantName
      * @param $merchantPassword
      * @param $clientId
      */
-    public function __construct($clientId, $merchantName, $merchantPassword)
+    public function __construct(BankInterface $bank, $clientId, $merchantName, $merchantPassword)
     {
+        $this->setBank($bank);
         $this->setMerchantName($merchantName);
         $this->setMerchantPassword($merchantPassword);
         $this->setClientId($clientId);
@@ -159,6 +169,34 @@ abstract class AbstractModel implements ModelInterface
     public function setType($type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return BankInterface
+     */
+    public function getBank()
+    {
+        return $this->bank;
+    }
+
+    /**
+     * @param BankInterface $bank
+     */
+    public function setBank(BankInterface $bank)
+    {
+        $this->bank = $bank;
+    }
+
+    /**
+     * Get end point
+     * @return mixed
+     */
+    public function getEndPoint()
+    {
+        if ($this->isTestMode()) {
+            return $this->getBank()->getEndPoints()['test'];
+        }
+        return $this->getBank()->getEndPoints()['prod'];
     }
 }
 
