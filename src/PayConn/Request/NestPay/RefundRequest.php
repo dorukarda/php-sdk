@@ -4,7 +4,7 @@ namespace PayConn\Request\NestPay;
 use PayConn\Model\NestPay\Refund;
 use PayConn\Request\AbstractRequest;
 use GuzzleHttp\Client;
-use PayConn\Response\NestPay\PurchaseResponse;
+use PayConn\Response\NestPay\RefundResponse;
 
 /**
  * Class RefundRequest
@@ -68,13 +68,13 @@ class RefundRequest extends AbstractRequest
 
     /**
      * Send
-     * @return PurchaseResponse
+     * @return RefundResponse
      */
     public function send()
     {
         $xml = $this->prepare();
         $response = $this->request($xml);
-        return new PurchaseResponse($response);
+        return new RefundResponse($response);
     }
 
     /**

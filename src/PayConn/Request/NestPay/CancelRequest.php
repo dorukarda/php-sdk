@@ -4,7 +4,7 @@ namespace PayConn\Request\NestPay;
 use PayConn\Model\NestPay\Cancel;
 use PayConn\Request\AbstractRequest;
 use GuzzleHttp\Client;
-use PayConn\Response\NestPay\PurchaseResponse;
+use PayConn\Response\NestPay\CancelResponse;
 
 /**
  * Class CancelRequest
@@ -66,13 +66,13 @@ class CancelRequest extends AbstractRequest
 
     /**
      * Send
-     * @return PurchaseResponse
+     * @return CancelResponse
      */
     public function send()
     {
         $xml = $this->prepare();
         $response = $this->request($xml);
-        return new PurchaseResponse($response);
+        return new CancelResponse($response);
     }
 
     /**
