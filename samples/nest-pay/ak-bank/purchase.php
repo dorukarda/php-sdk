@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use PayConn\Model\CreditCard;
 use PayConn\Model\NestPay\Purchase;
-use PayConn\Request\NestPay\AkBank\PurchaseRequest;
+use PayConn\Request\NestPay\PurchaseRequest;
 use PayConn\Model\NestPay\Banks\AkBank;
 
 // credit card

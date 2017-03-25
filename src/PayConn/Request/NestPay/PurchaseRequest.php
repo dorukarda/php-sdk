@@ -1,7 +1,7 @@
 <?php
 namespace PayConn\Request\NestPay;
 
-use PayConn\Model\NestPay\AbstractPurchase;
+use PayConn\Model\NestPay\Purchase;
 use PayConn\Request\AbstractRequest;
 use GuzzleHttp\Client;
 use PayConn\Response\NestPay\PurchaseResponse;
@@ -10,7 +10,7 @@ use PayConn\Response\NestPay\PurchaseResponse;
  * Class AbstractPurchaseRequest
  * @package PayConn\Request\NestPay
  */
-abstract class AbstractPurchaseRequest extends AbstractRequest
+class PurchaseRequest extends AbstractRequest
 {
     /**
      * @var string
@@ -49,7 +49,7 @@ abstract class AbstractPurchaseRequest extends AbstractRequest
      */
     public function prepare()
     {
-        /** @var AbstractPurchase $model */
+        /** @var Purchase $model */
         $model = $this->getModel();
         $xml = @simplexml_load_string($this->getXmlData());
         $xml->Name = $model->getMerchantName();
