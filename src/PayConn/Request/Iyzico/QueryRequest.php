@@ -15,6 +15,15 @@ use PayConn\Response\Iyzico\QueryResponse;
 class QueryRequest extends AbstractRequest
 {
     /**
+     * QueryRequest constructor.
+     * @param Query $model
+     */
+    public function __construct(Query $model)
+    {
+        parent::__construct($model);
+    }
+
+    /**
      * Prepare
      * @return RetrievePaymentRequest
      */

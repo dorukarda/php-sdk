@@ -44,6 +44,15 @@ class RefundRequest extends AbstractRequest
     }
 
     /**
+     * RefundRequest constructor.
+     * @param Refund $model
+     */
+    public function __construct(Refund $model)
+    {
+        parent::__construct($model);
+    }
+
+    /**
      * Prepare
      * @return \SimpleXMLElement
      */

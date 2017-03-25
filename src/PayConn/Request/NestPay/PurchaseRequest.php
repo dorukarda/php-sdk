@@ -44,6 +44,15 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
+     * PurchaseRequest constructor.
+     * @param Purchase $model
+     */
+    public function __construct(Purchase $model)
+    {
+        parent::__construct($model);
+    }
+
+    /**
      * Prepare
      * @return \SimpleXMLElement
      */

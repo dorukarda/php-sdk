@@ -15,6 +15,15 @@ use PayConn\Response\Iyzico\CancelResponse;
 class CancelRequest extends AbstractRequest
 {
     /**
+     * CancelRequest constructor.
+     * @param Cancel $model
+     */
+    public function __construct(Cancel $model)
+    {
+        parent::__construct($model);
+    }
+
+    /**
      * Prepare
      * @return CreateCancelRequest
      */

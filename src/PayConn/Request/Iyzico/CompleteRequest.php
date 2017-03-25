@@ -15,6 +15,15 @@ use PayConn\Response\Iyzico\CompleteResponse;
 class CompleteRequest extends AbstractRequest
 {
     /**
+     * CompleteRequest constructor.
+     * @param Complete $model
+     */
+    public function __construct(Complete $model)
+    {
+        parent::__construct($model);
+    }
+
+    /**
      * @return CreateThreedsPaymentRequest
      */
     public function prepare()

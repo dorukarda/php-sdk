@@ -20,6 +20,15 @@ use PayConn\Response\Iyzico\AuthorizeResponse;
 class AuthorizeRequest extends AbstractRequest
 {
     /**
+     * AuthorizeRequest constructor.
+     * @param Authorize $model
+     */
+    public function __construct(Authorize $model)
+    {
+        parent::__construct($model);
+    }
+
+    /**
      * Prepare
      * @return CreatePaymentRequest
      */
