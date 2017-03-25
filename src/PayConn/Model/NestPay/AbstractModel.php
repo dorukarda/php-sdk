@@ -63,13 +63,6 @@ abstract class AbstractModel implements ModelInterface
     protected $clientId;
 
     /**
-     * @var string
-     *
-     * @Assert\NotBlank
-     */
-    protected $type;
-
-    /**
      * @var BankInterface
      *
      * @Assert\NotBlank
@@ -153,22 +146,6 @@ abstract class AbstractModel implements ModelInterface
     public function setClientId($clientId)
     {
         $this->clientId = $clientId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
     }
 
     /**

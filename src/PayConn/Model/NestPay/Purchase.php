@@ -41,6 +41,13 @@ class Purchase extends AbstractModel implements CreditCardInterface
     protected $currency;
 
     /**
+     * @var string
+     *
+     * @Assert\NotBlank
+     */
+    protected $type;
+
+    /**
      * @return CreditCard
      */
     public function getCreditCard()
@@ -102,5 +109,21 @@ class Purchase extends AbstractModel implements CreditCardInterface
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 }

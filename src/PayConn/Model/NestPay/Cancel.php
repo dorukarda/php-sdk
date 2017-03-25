@@ -1,15 +1,13 @@
 <?php
 namespace PayConn\Model\NestPay;
 
-use PayConn\Model\BuyerInterface;
-use PayConn\Model\CreditCardInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AbstractCancel
  * @package PayConn\Model\NestPay
  */
-abstract class AbstractCancel extends AbstractModel implements CreditCardInterface, BuyerInterface
+class Cancel extends AbstractModel
 {
     /**
      * @var string
