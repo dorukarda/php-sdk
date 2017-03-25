@@ -2,6 +2,7 @@
 namespace PayConn\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use \DateTime;
 
 /**
  * Class CreditCard
@@ -27,6 +28,8 @@ class CreditCard
      * @var integer
      *
      * @Assert\NotBlank
+     *
+     * @Assert\Length(min=2,max=2)
      */
     private $expiryMonth;
 
@@ -34,6 +37,8 @@ class CreditCard
      * @var integer
      *
      * @Assert\NotBlank
+     *
+     * @Assert\Length(min=4,max=4)
      */
     private $expiryYear;
 
@@ -122,5 +127,17 @@ class CreditCard
     public function setCvv($cvv)
     {
         $this->cvv = $cvv;
+    }
+
+    /**
+     * Get expiry
+     * @param $format
+     * @return string
+     */
+    public function getExpiry($format)
+    {
+        $expiry = new DateTime('01-' . $this->getExpiryMonth() . '-' . $this->getExpiryYear());
+
+        return $expiry->format($format);
     }
 }
