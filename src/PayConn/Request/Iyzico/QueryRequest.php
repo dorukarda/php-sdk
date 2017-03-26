@@ -24,18 +24,23 @@ class QueryRequest extends AbstractRequest
     }
 
     /**
+     * @return \PayConn\Model\Iyzico\Query
+     */
+    public function getModel()
+    {
+        return parent::getModel();
+    }
+
+    /**
      * Prepare
      * @return RetrievePaymentRequest
      */
     public function prepare()
     {
-        /** @var Query $model */
-        $model = $this->getModel();
-
         // request
         $request = new RetrievePaymentRequest();
         $request->setLocale(Locale::TR);
-        $request->setPaymentId($model->getPaymentId());
+        $request->setPaymentId($this->getModel()->getPaymentId());
 
         return $request;
     }
@@ -45,24 +50,21 @@ class QueryRequest extends AbstractRequest
      */
     public function send()
     {
-        /** @var Query $model */
-        $model = $this->getModel();
         $postData = $this->prepare();
 
         // send
-        $cancel = $this->request($postData, $model);
+        $cancel = $this->request($postData);
         return new QueryResponse(json_decode($cancel->getRawResult(), true));
     }
 
     /**
      * Request
      * @param RetrievePaymentRequest $postData
-     * @param Query $model
      * @return mixed
      */
-    protected function request(RetrievePaymentRequest $postData, Query $model)
+    protected function request(RetrievePaymentRequest $postData)
     {
-        $responseModel = IyzicoPayment::retrieve($postData, $model->getOptions());
+        $responseModel = IyzicoPayment::retrieve($postData, $this->getModel()->getOptions());
 
         return $responseModel;
     }

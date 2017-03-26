@@ -53,23 +53,29 @@ class RefundRequest extends AbstractRequest
     }
 
     /**
+     * @return \PayConn\Model\NestPay\Refund
+     */
+    public function getModel()
+    {
+        return parent::getModel();
+    }
+
+    /**
      * Prepare
      * @return \SimpleXMLElement
      */
     public function prepare()
     {
-        /** @var Refund $model */
-        $model = $this->getModel();
         $xml = @simplexml_load_string($this->getXmlData());
-        $xml->Name = $model->getMerchantName();
-        $xml->Password = $model->getMerchantPassword();
-        $xml->ClientId = $model->getClientId();
-        $xml->OrderId = $model->getOrderId();
+        $xml->Name = $this->getModel()->getMerchantName();
+        $xml->Password = $this->getModel()->getMerchantPassword();
+        $xml->ClientId = $this->getModel()->getClientId();
+        $xml->OrderId = $this->getModel()->getOrderId();
         $xml->Type = Refund::TYPE_CREDIT;
         $xml->Mode = self::MODE_LIVE;
-        $xml->Total = $model->getPrice();
-        $xml->Currency = $model->getCurrency();
-        if ($model->isTestMode()) {
+        $xml->Total = $this->getModel()->getPrice();
+        $xml->Currency = $this->getModel()->getCurrency();
+        if ($this->getModel()->isTestMode()) {
             $xml->Mode = self::MODE_TEST;
         }
         return $xml->saveXML();

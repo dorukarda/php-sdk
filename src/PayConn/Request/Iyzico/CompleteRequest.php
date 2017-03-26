@@ -24,17 +24,22 @@ class CompleteRequest extends AbstractRequest
     }
 
     /**
+     * @return \PayConn\Model\Iyzico\Complete
+     */
+    public function getModel()
+    {
+        return parent::getModel();
+    }
+
+    /**
      * @return CreateThreedsPaymentRequest
      */
     public function prepare()
     {
-        /** @var Complete $model */
-        $model = $this->getModel();
-
         // request
         $request = new CreateThreedsPaymentRequest();
         $request->setLocale(Locale::TR);
-        $request->setPaymentId($model->getPaymentId());
+        $request->setPaymentId($this->getModel()->getPaymentId());
 
         return $request;
     }
@@ -44,12 +49,10 @@ class CompleteRequest extends AbstractRequest
      */
     public function send()
     {
-        /** @var Complete $model */
-        $model = $this->getModel();
         $postData = $this->prepare();
 
         // send
-        $cancel = $this->request($postData, $model);
+        $cancel = $this->request($postData);
         return new CompleteResponse(json_decode($cancel->getRawResult(), true));
     }
 
@@ -57,12 +60,11 @@ class CompleteRequest extends AbstractRequest
     /**
      * Request
      * @param CreateThreedsPaymentRequest $postData
-     * @param Complete $model
      * @return IyzicoThreedsPayment
      */
-    protected function request(CreateThreedsPaymentRequest $postData, Complete $model)
+    protected function request(CreateThreedsPaymentRequest $postData)
     {
-        $responseModel = IyzicoThreedsPayment::create($postData, $model->getOptions());
+        $responseModel = IyzicoThreedsPayment::create($postData, $this->getModel()->getOptions());
 
         return $responseModel;
     }

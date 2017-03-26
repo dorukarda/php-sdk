@@ -29,28 +29,33 @@ class AuthorizeRequest extends AbstractRequest
     }
 
     /**
+     * @return \PayConn\Model\Iyzico\Authorize
+     */
+    public function getModel()
+    {
+        return parent::getModel();
+    }
+
+    /**
      * Prepare
      * @return CreatePaymentRequest
      */
     public function prepare()
     {
-        /** @var Authorize $model */
-        $model = $this->getModel();
-
         // request
         $request = new CreatePaymentRequest();
         $request->setLocale(Locale::TR);
-        $request->setPrice($model->getPrice());
-        $request->setPaidPrice($model->getPaidPrice());
-        $request->setCurrency($model->getCurrency());
-        $request->setInstallment($model->getInstallment());
-        $request->setPaymentChannel($model->getPaymentChannel());
-        $request->setPaymentGroup($model->getPaymentGroup());
-        $request->setCallbackUrl($model->getCallbackUrl());
+        $request->setPrice($this->getModel()->getPrice());
+        $request->setPaidPrice($this->getModel()->getPaidPrice());
+        $request->setCurrency($this->getModel()->getCurrency());
+        $request->setInstallment($this->getModel()->getInstallment());
+        $request->setPaymentChannel($this->getModel()->getPaymentChannel());
+        $request->setPaymentGroup($this->getModel()->getPaymentGroup());
+        $request->setCallbackUrl($this->getModel()->getCallbackUrl());
 
         // basket items
         $basketItems = [];
-        foreach ($model->getBasketItems() as $basketItemModel) {
+        foreach ($this->getModel()->getBasketItems() as $basketItemModel) {
             $basketItem = new BasketItem();
             $basketItem->setId($basketItemModel->getId());
             $basketItem->setName($basketItemModel->getName());
@@ -63,45 +68,45 @@ class AuthorizeRequest extends AbstractRequest
 
         // credit card
         $paymentCard = new PaymentCard();
-        $paymentCard->setCardHolderName($model->getCreditCard()->getHolderName());
-        $paymentCard->setCardNumber($model->getCreditCard()->getNumber());
-        $paymentCard->setExpireMonth($model->getCreditCard()->getExpiryMonth());
-        $paymentCard->setExpireYear($model->getCreditCard()->getExpiryYear());
-        $paymentCard->setCvc($model->getCreditCard()->getCvv());
+        $paymentCard->setCardHolderName($this->getModel()->getCreditCard()->getHolderName());
+        $paymentCard->setCardNumber($this->getModel()->getCreditCard()->getNumber());
+        $paymentCard->setExpireMonth($this->getModel()->getCreditCard()->getExpiryMonth());
+        $paymentCard->setExpireYear($this->getModel()->getCreditCard()->getExpiryYear());
+        $paymentCard->setCvc($this->getModel()->getCreditCard()->getCvv());
         $paymentCard->setRegisterCard(0);
         $request->setPaymentCard($paymentCard);
 
         // buyer
         $buyer = new Buyer();
-        $buyer->setId($model->getBuyer()->getUniqueId());
-        $buyer->setName($model->getBuyer()->getName());
-        $buyer->setSurname($model->getBuyer()->getSurname());
-        $buyer->setGsmNumber($model->getBuyer()->getPhone());
-        $buyer->setEmail($model->getBuyer()->getEmail());
-        $buyer->setIdentityNumber($model->getBuyer()->getIdentityNumber());
-        $buyer->setRegistrationAddress($model->getBuyer()->getAddress());
-        $buyer->setIp($model->getBuyer()->getIpNumber());
-        $buyer->setCity($model->getBuyer()->getCity());
-        $buyer->setCountry($model->getBuyer()->getCountry());
-        $buyer->setZipCode($model->getBuyer()->getZipCode());
+        $buyer->setId($this->getModel()->getBuyer()->getUniqueId());
+        $buyer->setName($this->getModel()->getBuyer()->getName());
+        $buyer->setSurname($this->getModel()->getBuyer()->getSurname());
+        $buyer->setGsmNumber($this->getModel()->getBuyer()->getPhone());
+        $buyer->setEmail($this->getModel()->getBuyer()->getEmail());
+        $buyer->setIdentityNumber($this->getModel()->getBuyer()->getIdentityNumber());
+        $buyer->setRegistrationAddress($this->getModel()->getBuyer()->getAddress());
+        $buyer->setIp($this->getModel()->getBuyer()->getIpNumber());
+        $buyer->setCity($this->getModel()->getBuyer()->getCity());
+        $buyer->setCountry($this->getModel()->getBuyer()->getCountry());
+        $buyer->setZipCode($this->getModel()->getBuyer()->getZipCode());
         $request->setBuyer($buyer);
 
         // shipping address
         $shippingAddress = new Address();
-        $shippingAddress->setContactName($model->getBuyer()->getName() . ' ' . $model->getBuyer()->getSurname());
-        $shippingAddress->setCity($model->getBuyer()->getCity());
-        $shippingAddress->setCountry($model->getBuyer()->getCountry());
-        $shippingAddress->setAddress($model->getBuyer()->getAddress());
-        $shippingAddress->setZipCode($model->getBuyer()->getZipCode());
+        $shippingAddress->setContactName($this->getModel()->getBuyer()->getName() . ' ' . $this->getModel()->getBuyer()->getSurname());
+        $shippingAddress->setCity($this->getModel()->getBuyer()->getCity());
+        $shippingAddress->setCountry($this->getModel()->getBuyer()->getCountry());
+        $shippingAddress->setAddress($this->getModel()->getBuyer()->getAddress());
+        $shippingAddress->setZipCode($this->getModel()->getBuyer()->getZipCode());
         $request->setShippingAddress($shippingAddress);
 
         // billing address
         $billingAddress = new Address();
-        $billingAddress->setContactName($model->getBuyer()->getName() . ' ' . $model->getBuyer()->getSurname());
-        $billingAddress->setCity($model->getBuyer()->getCity());
-        $billingAddress->setCountry($model->getBuyer()->getCountry());
-        $billingAddress->setAddress($model->getBuyer()->getAddress());
-        $billingAddress->setZipCode($model->getBuyer()->getZipCode());
+        $billingAddress->setContactName($this->getModel()->getBuyer()->getName() . ' ' . $this->getModel()->getBuyer()->getSurname());
+        $billingAddress->setCity($this->getModel()->getBuyer()->getCity());
+        $billingAddress->setCountry($this->getModel()->getBuyer()->getCountry());
+        $billingAddress->setAddress($this->getModel()->getBuyer()->getAddress());
+        $billingAddress->setZipCode($this->getModel()->getBuyer()->getZipCode());
         $request->setBillingAddress($billingAddress);
 
         return $request;
@@ -112,12 +117,10 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function send()
     {
-        /** @var Authorize $model */
-        $model = $this->getModel();
         $postData = $this->prepare();
 
         // send
-        $payment = $this->request($postData, $model);
+        $payment = $this->request($postData);
         return new AuthorizeResponse(json_decode($payment->getRawResult(), true));
     }
 
@@ -125,12 +128,11 @@ class AuthorizeRequest extends AbstractRequest
     /**
      * Request
      * @param CreatePaymentRequest $postData
-     * @param Authorize $model
      * @return ThreedsInitialize
      */
-    protected function request(CreatePaymentRequest $postData, Authorize $model)
+    protected function request(CreatePaymentRequest $postData)
     {
-        $responseModel = ThreedsInitialize::create($postData, $model->getOptions());
+        $responseModel = ThreedsInitialize::create($postData, $this->getModel()->getOptions());
 
         return $responseModel;
     }

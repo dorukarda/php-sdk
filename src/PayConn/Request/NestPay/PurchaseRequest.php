@@ -53,26 +53,32 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
+     * @return \PayConn\Model\NestPay\Purchase
+     */
+    public function getModel()
+    {
+        return parent::getModel();
+    }
+
+    /**
      * Prepare
      * @return \SimpleXMLElement
      */
     public function prepare()
     {
-        /** @var Purchase $model */
-        $model = $this->getModel();
         $xml = @simplexml_load_string($this->getXmlData());
-        $xml->Name = $model->getMerchantName();
-        $xml->Password = $model->getMerchantPassword();
-        $xml->ClientId = $model->getClientId();
-        $xml->Type = $model->getType();
-        $xml->Number = $model->getCreditCard()->getNumber();
-        $xml->Expires = $model->getCreditCard()->getExpiry('m/Y');
-        $xml->Cvv2Val = $model->getCreditCard()->getCvv();
-        $xml->Total = $model->getPrice();
-        $xml->Currency = $model->getCurrency();
-        $xml->Taksit = $model->getInstallment();
+        $xml->Name = $this->getModel()->getMerchantName();
+        $xml->Password = $this->getModel()->getMerchantPassword();
+        $xml->ClientId = $this->getModel()->getClientId();
+        $xml->Type = $this->getModel()->getType();
+        $xml->Number = $this->getModel()->getCreditCard()->getNumber();
+        $xml->Expires = $this->getModel()->getCreditCard()->getExpiry('m/Y');
+        $xml->Cvv2Val = $this->getModel()->getCreditCard()->getCvv();
+        $xml->Total = $this->getModel()->getPrice();
+        $xml->Currency = $this->getModel()->getCurrency();
+        $xml->Taksit = $this->getModel()->getInstallment();
         $xml->Mode = self::MODE_LIVE;
-        if ($model->isTestMode()) {
+        if ($this->getModel()->isTestMode()) {
             $xml->Mode = self::MODE_TEST;
         }
         return $xml->saveXML();

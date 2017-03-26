@@ -24,19 +24,24 @@ class CancelRequest extends AbstractRequest
     }
 
     /**
+     * @return \PayConn\Model\Iyzico\Cancel
+     */
+    public function getModel()
+    {
+        return parent::getModel();
+    }
+
+    /**
      * Prepare
      * @return CreateCancelRequest
      */
     public function prepare()
     {
-        /** @var Cancel $model */
-        $model = $this->getModel();
-
         // request
         $request = new CreateCancelRequest();
         $request->setLocale(Locale::TR);
-        $request->setPaymentId($model->getPaymentId());
-        $request->setIp($model->getIpAddress());
+        $request->setPaymentId($this->getModel()->getPaymentId());
+        $request->setIp($this->getModel()->getIpAddress());
 
         return $request;
     }
@@ -46,24 +51,21 @@ class CancelRequest extends AbstractRequest
      */
     public function send()
     {
-        /** @var Cancel $model */
-        $model = $this->getModel();
         $postData = $this->prepare();
 
         // send
-        $cancel = $this->request($postData, $model);
+        $cancel = $this->request($postData);
         return new CancelResponse(json_decode($cancel->getRawResult(), true));
     }
 
     /**
      * Request
      * @param CreateCancelRequest $postData
-     * @param Cancel $model
      * @return IyzicoCancel|Cancel
      */
-    protected function request(CreateCancelRequest $postData, Cancel $model)
+    protected function request(CreateCancelRequest $postData)
     {
-        $responseModel = IyzicoCancel::create($postData, $model->getOptions());
+        $responseModel = IyzicoCancel::create($postData, $this->getModel()->getOptions());
 
         return $responseModel;
     }

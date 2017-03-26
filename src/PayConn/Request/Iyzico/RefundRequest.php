@@ -24,20 +24,25 @@ class RefundRequest extends AbstractRequest
     }
 
     /**
+     * @return \PayConn\Model\Iyzico\Refund
+     */
+    public function getModel()
+    {
+        return parent::getModel();
+    }
+
+    /**
      * Prepare
      * @return CreateRefundRequest
      */
     public function prepare()
     {
-        /** @var Refund $model */
-        $model = $this->getModel();
-
         // request
         $request = new CreateRefundRequest();
         $request->setLocale(Locale::TR);
-        $request->setPrice($model->getPrice());
-        $request->setIp($model->getIpAddress());
-        $request->setPaymentTransactionId($model->getPaymentId());
+        $request->setPrice($this->getModel()->getPrice());
+        $request->setIp($this->getModel()->getIpAddress());
+        $request->setPaymentTransactionId($this->getModel()->getPaymentId());
 
         return $request;
     }
@@ -47,24 +52,21 @@ class RefundRequest extends AbstractRequest
      */
     public function send()
     {
-        /** @var Refund $model */
-        $model = $this->getModel();
         $postData = $this->prepare();
 
         // send
-        $refund = $this->request($postData, $model);
+        $refund = $this->request($postData);
         return new RefundResponse(json_decode($refund->getRawResult(), true));
     }
 
     /**
      * Request
      * @param CreateRefundRequest $postData
-     * @param Refund $model
      * @return IyzicoRefund
      */
-    protected function request(CreateRefundRequest $postData, Refund $model)
+    protected function request(CreateRefundRequest $postData)
     {
-        $responseModel = IyzicoRefund::create($postData, $model->getOptions());
+        $responseModel = IyzicoRefund::create($postData, $this->getModel()->getOptions());
 
         return $responseModel;
     }
