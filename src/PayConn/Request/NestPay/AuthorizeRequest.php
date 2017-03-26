@@ -47,6 +47,7 @@ class AuthorizeRequest extends AbstractRequest
             'store_type' => $this->getModel()->getStoreType(),
             'random' => $random,
             'hash' => $this->createHash('', $random),
+            'currency' => $this->getModel()->getCurrency(),
             'order_id' => ''
         ];
         if ($this->getModel()->getStoreType() !== Authorize::STORE_TYPE_3D_HOSTING) {
