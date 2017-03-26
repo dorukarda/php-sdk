@@ -1,0 +1,19 @@
+<form method="POST" action="{{ end_point }}" id="form">
+    <input type="hidden" name="pan" value="{{ credit_card.number }}">
+    <input type="hidden" name="cv2" value="{{ credit_card.cvv }}">
+    <input type="hidden" name="Ecom_Payment_Card_ExpDate_Month" value="{{ credit_card.expiry_month }}">
+    <input type="hidden" name="Ecom_Payment_Card_ExpDate_Year" value="{{ credit_card.expiry_year }}">
+    <input type="hidden" name="clientid" value="{{ client_id }}">
+    <input type="hidden" name="amount" value="{{ price }}">
+    <input type="hidden" name="oid" value="{{ order_id }}">
+    <input type="hidden" name="okUrl" value="{{ success_url }}">
+    <input type="hidden" name="failUrl" value="{{ failure_url }}">
+    <input type="hidden" name="rnd" value="{{ random }}">
+    <input type="hidden" name="hash" value="{{ hash }}">
+    <input type="hidden" name="storetype" value="{{ store_type }}">
+    <input type="hidden" name="currency" value="{{ currency }}">
+    <input type="hidden" name="taksit" value="{{ installment }}">
+</form>
+<script type="text/javascript">
+    document.getElementById("form").submit();
+</script>
