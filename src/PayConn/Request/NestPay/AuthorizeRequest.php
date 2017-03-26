@@ -35,7 +35,7 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function prepare()
     {
-        $random = rand();
+        $random = microtime();
         $data = [
             'client_id' => $this->getModel()->getClientId(),
             'end_point' => $this->getModel()->getEndPoint('3d'),
