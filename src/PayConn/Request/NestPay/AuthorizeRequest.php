@@ -81,7 +81,7 @@ class AuthorizeRequest extends AbstractRequest
      */
     private function createHash($orderId, $random)
     {
-        $hashData = $this->getModel()->getClientId() . $orderId . $this->getModel()->getPrice() . $this->getModel()->getSuccessUrl() . $this->getModel()->getFailureUrl() . $this->getModel()->getType() . $this->getModel()->getInstallment() . $random . $this->getModel()->getStoreKey();
+        $hashData = $this->getModel()->getClientId() . $orderId . $this->getModel()->getPrice() . $this->getModel()->getSuccessUrl() . $this->getModel()->getFailureUrl() . $random . $this->getModel()->getStoreKey();
         $hash = base64_encode(pack('H*', sha1($hashData)));
 
         return $hash;

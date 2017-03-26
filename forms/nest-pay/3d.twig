@@ -1,10 +1,8 @@
 <form method="POST" action="{{ end_point }}" id="form">
-    {% if store_type != '3d_pay_hosting' %}
-        <input type="hidden" name="pan" value="{{ credit_card.number }}">
-        <input type="hidden" name="cv2" value="{{ credit_card.cvv }}">
-        <input type="hidden" name="Ecom_Payment_Card_ExpDate_Month" value="{{ credit_card.expiry_month }}">
-        <input type="hidden" name="Ecom_Payment_Card_ExpDate_Year" value="{{ credit_card.expiry_year }}">
-    {% endif %}
+    <input type="hidden" name="pan" value="{{ credit_card.number }}">
+    <input type="hidden" name="cv2" value="{{ credit_card.cvv }}">
+    <input type="hidden" name="Ecom_Payment_Card_ExpDate_Month" value="{{ credit_card.expiry_month }}">
+    <input type="hidden" name="Ecom_Payment_Card_ExpDate_Year" value="{{ credit_card.expiry_year }}">
     <input type="hidden" name="clientid" value="{{ client_id }}">
     <input type="hidden" name="amount" value="{{ price }}">
     <input type="hidden" name="oid" value="{{ order_id }}">

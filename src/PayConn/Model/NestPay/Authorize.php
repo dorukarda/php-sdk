@@ -86,6 +86,13 @@ class Authorize extends AbstractModel implements CreditCardInterface
     protected $type;
 
     /**
+     * @var integer
+     *
+     * @Assert\NotBlank
+     */
+    protected $currency;
+
+    /**
      * @return CreditCard
      */
     public function getCreditCard()
@@ -211,6 +218,22 @@ class Authorize extends AbstractModel implements CreditCardInterface
     public function setType($type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param int $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
     }
 
     /**
