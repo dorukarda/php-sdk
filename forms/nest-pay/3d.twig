@@ -12,7 +12,11 @@
     <input type="hidden" name="hash" value="{{ hash }}">
     <input type="hidden" name="storetype" value="{{ store_type }}">
     <input type="hidden" name="currency" value="{{ currency }}">
-    <input type="hidden" name="taksit" value="{{ installment }}">
+    {% if installment == 1 %}
+        <input type="hidden" name="taksit" value="">
+    {% else %}
+        <input type="hidden" name="taksit" value="{{ installment }}">
+    {% endif %}
 </form>
 <script type="text/javascript">
     document.getElementById("form").submit();
