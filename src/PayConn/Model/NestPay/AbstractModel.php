@@ -166,14 +166,15 @@ abstract class AbstractModel implements ModelInterface
 
     /**
      * Get end point
+     * @param string $secureType
      * @return mixed
      */
-    public function getEndPoint()
+    public function getEndPoint($secureType = 'non_secure')
     {
         if ($this->isTestMode()) {
-            return $this->getBank()->getEndPoints()['test'];
+            return $this->getBank()->getEndPoints()['test'][$secureType];
         }
-        return $this->getBank()->getEndPoints()['prod'];
+        return $this->getBank()->getEndPoints()['prod'][$secureType];
     }
 }
 

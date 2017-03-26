@@ -15,19 +15,19 @@ class Authorize extends AbstractModel implements CreditCardInterface
      * 3d
      * @var string
      */
-    const STORE_TYPE_3D = '3D';
+    const STORE_TYPE_3D = '3d';
 
     /**
      * 3d hosting
      * @var string
      */
-    const STORE_TYPE_3D_HOSTING = '3DHosting';
+    const STORE_TYPE_3D_HOSTING = '3d_pay_hosting';
 
     /**
      * 3d pay
      * @var string
      */
-    const STORE_TYPE_3D_PAY = '3DPay';
+    const STORE_TYPE_3D_PAY = '3d_pay';
 
     /**
      * @var CreditCard
@@ -65,6 +65,27 @@ class Authorize extends AbstractModel implements CreditCardInterface
     protected $storeType;
 
     /**
+     * @var float
+     *
+     * @Assert\NotBlank
+     */
+    protected $price;
+
+    /**
+     * @var integer
+     *
+     * @Assert\NotBlank
+     */
+    protected $installment;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank
+     */
+    protected $type;
+
+    /**
      * @return CreditCard
      */
     public function getCreditCard()
@@ -75,7 +96,7 @@ class Authorize extends AbstractModel implements CreditCardInterface
     /**
      * @param CreditCard $creditCard
      */
-    public function setCreditCard($creditCard)
+    public function setCreditCard(CreditCard $creditCard)
     {
         $this->creditCard = $creditCard;
     }
@@ -145,11 +166,59 @@ class Authorize extends AbstractModel implements CreditCardInterface
     }
 
     /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInstallment()
+    {
+        return $this->installment;
+    }
+
+    /**
+     * @param int $installment
+     */
+    public function setInstallment($installment)
+    {
+        $this->installment = $installment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
      * @Assert\IsTrue(message = "Credit card is required")
      *
      * @return bool
      */
-    public function validateCreditCard()
+    public function isValidCreditCard()
     {
         if ($this->getStoreType() !== self::STORE_TYPE_3D_HOSTING && $this->getCreditCard() === null) {
             return false;

@@ -42,7 +42,13 @@ class AkBank extends AbstractBank
      * @var array
      */
     protected $endPoints = [
-        'test' => 'https://entegrasyon.asseco-see.com.tr/fim/api',
-        'prod' => 'https://www.sanalakpos.com/fim/api'
+        'test' => [
+            'non_secure' => 'https://entegrasyon.asseco-see.com.tr/fim/api',
+            '3d' => 'https://entegrasyon.asseco-see.com.tr/fim/est3Dgate'
+        ],
+        'prod' => [
+            'non_secure' => 'https://www.sanalakpos.com/fim/api',
+            '3d' => 'https://www.sanalakpos.com/fim/est3Dgate'
+        ]
     ];
 }
