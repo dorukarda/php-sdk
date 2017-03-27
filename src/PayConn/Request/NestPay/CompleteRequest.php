@@ -76,7 +76,7 @@ class CompleteRequest extends AbstractRequest
         $xml->Password = $this->getModel()->getMerchantPassword();
         $xml->ClientId = $this->getModel()->getClientId();
         $xml->Mode = self::MODE_LIVE;
-        $xml->OrderId = $this->getPostParam('OrderId');
+        $xml->OrderId = strval($this->getPostParam('oid'));
         $xml->Number = $this->getPostParam('md');
         $xml->Total = $this->getPostParam('amount');
         $xml->Currency = $this->getPostParam('currency');
@@ -84,6 +84,7 @@ class CompleteRequest extends AbstractRequest
         $xml->PayerTxnId = $this->getPostParam('xid');
         $xml->PayerSecurityLevel = $this->getPostParam('eci');
         $xml->PayerAuthenticationCode = $this->getPostParam('cavv');
+        $xml->Type = $this->getModel()->getType();
         if ($this->getModel()->isTestMode()) {
             $xml->Mode = self::MODE_TEST;
         }

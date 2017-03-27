@@ -2,6 +2,7 @@
 namespace PayConn\Model\NestPay;
 
 use PayConn\ArrayIterator;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Complete
@@ -36,22 +37,6 @@ class Complete extends AbstractModel
      * @Assert\NotBlank
      */
     protected $postParams;
-
-    /**
-     * @return string
-     */
-    public function getStoreType()
-    {
-        return $this->storeType;
-    }
-
-    /**
-     * @param string $storeType
-     */
-    public function setStoreType($storeType)
-    {
-        $this->storeType = $storeType;
-    }
 
     /**
      * @return string
@@ -99,5 +84,21 @@ class Complete extends AbstractModel
     public function setType($type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStoreType()
+    {
+        return $this->storeType;
+    }
+
+    /**
+     * @param string $storeType
+     */
+    public function setStoreType($storeType)
+    {
+        $this->storeType = $storeType;
     }
 }
