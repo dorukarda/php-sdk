@@ -15,7 +15,7 @@ class PurchaseResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
-        if ($this->offsetExists('Response') && $this->offsetGet('Response') === 'Approved') {
+        if ($this->offsetGet('Response') === 'Approved') {
             return true;
         }
         return false;

@@ -1,7 +1,7 @@
 <?php
 namespace PayConn\Response;
 
-use \ArrayIterator;
+use PayConn\ArrayIterator;
 
 /**
  * Class AbstractResponse
