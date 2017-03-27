@@ -19,6 +19,6 @@ class ArrayIterator extends AbstractArrayIterator
         if (!$this->offsetExists($index)) {
             return null;
         }
-        return $this->offsetGet($index);
+        return parent::offsetGet($index);
     }
 }
