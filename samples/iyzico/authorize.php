@@ -46,7 +46,7 @@ $authorize->setInstallment(1);
 $authorize->setPaidPrice(10);
 $authorize->setPrice(10);
 $authorize->addBasketItem($basketItem);
-$authorize->setCallbackUrl('http://your-domain.com/callback');
+$authorize->setCallbackUrl('http://www.payconn.com/iyzico/callback.php');
 $authorize->setTestMode(true);
 
 // request
