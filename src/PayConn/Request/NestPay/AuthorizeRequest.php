@@ -50,7 +50,7 @@ class AuthorizeRequest extends AbstractRequest
             'currency' => $this->getModel()->getCurrency(),
             'order_id' => ''
         ];
-        if ($this->getModel()->getStoreType() !== Authorize::STORE_TYPE_3D_HOSTING) {
+        if ($this->getModel()->getStoreType() !== Authorize::STORE_TYPE_3D_PAY_HOSTING) {
             $data['credit_card'] = [
                 'number' => $this->getModel()->getCreditCard()->getNumber(),
                 'expiry_month' => $this->getModel()->getCreditCard()->getExpiryMonth(),

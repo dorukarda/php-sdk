@@ -21,7 +21,7 @@ class Authorize extends AbstractModel implements CreditCardInterface
      * 3d hosting
      * @var string
      */
-    const STORE_TYPE_3D_HOSTING = '3d_pay_hosting';
+    const STORE_TYPE_3D_PAY_HOSTING = '3d_pay_hosting';
 
     /**
      * 3d pay
@@ -243,7 +243,7 @@ class Authorize extends AbstractModel implements CreditCardInterface
      */
     public function isValidCreditCard()
     {
-        if ($this->getStoreType() !== self::STORE_TYPE_3D_HOSTING && $this->getCreditCard() === null) {
+        if ($this->getStoreType() !== self::STORE_TYPE_3D_PAY_HOSTING && $this->getCreditCard() === null) {
             return false;
         }
         return true;
