@@ -12,24 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Authorize extends AbstractModel implements CreditCardInterface
 {
     /**
-     * 3d
-     * @var string
-     */
-    const STORE_TYPE_3D = '3d';
-
-    /**
-     * 3d hosting
-     * @var string
-     */
-    const STORE_TYPE_3D_PAY_HOSTING = '3d_pay_hosting';
-
-    /**
-     * 3d pay
-     * @var string
-     */
-    const STORE_TYPE_3D_PAY = '3d_pay';
-
-    /**
      * @var CreditCard
      *
      * @Assert\Valid
@@ -56,13 +38,6 @@ class Authorize extends AbstractModel implements CreditCardInterface
      * @Assert\NotBlank
      */
     protected $storeKey;
-
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank
-     */
-    protected $storeType;
 
     /**
      * @var float
@@ -157,22 +132,6 @@ class Authorize extends AbstractModel implements CreditCardInterface
     }
 
     /**
-     * @return string
-     */
-    public function getStoreType()
-    {
-        return $this->storeType;
-    }
-
-    /**
-     * @param string $storeType
-     */
-    public function setStoreType($storeType)
-    {
-        $this->storeType = $storeType;
-    }
-
-    /**
      * @return float
      */
     public function getPrice()
@@ -234,18 +193,5 @@ class Authorize extends AbstractModel implements CreditCardInterface
     public function setCurrency($currency)
     {
         $this->currency = $currency;
-    }
-
-    /**
-     * @Assert\IsTrue(message = "Credit card is required")
-     *
-     * @return bool
-     */
-    public function isValidCreditCard()
-    {
-        if ($this->getStoreType() !== self::STORE_TYPE_3D_PAY_HOSTING && $this->getCreditCard() === null) {
-            return false;
-        }
-        return true;
     }
 }

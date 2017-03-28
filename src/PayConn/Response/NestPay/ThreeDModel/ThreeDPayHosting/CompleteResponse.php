@@ -1,11 +1,11 @@
 <?php
-namespace PayConn\Response\NestPay;
+namespace PayConn\Response\NestPay\ThreeDModel\ThreeDPayHosting;
 
 use PayConn\Response\AbstractResponse;
 
 /**
  * Class CompleteResponse
- * @package PayConn\Response\NestPay
+ * @package PayConn\Response\NestPay\ThreeDModel\ThreeDPayHosting
  */
 class CompleteResponse extends AbstractResponse
 {
@@ -54,6 +54,6 @@ class CompleteResponse extends AbstractResponse
         if (!$this->isSuccessful()) {
             return null;
         }
-        return $this->offsetGet('OrderId');
+        return $this->offsetGet('ReturnOid');
     }
 }

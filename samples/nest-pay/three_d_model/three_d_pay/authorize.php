@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../../vendor/autoload.php';
 
 use PayConn\Model\CreditCard;
 use PayConn\Model\NestPay\Authorize;
-use PayConn\Request\NestPay\AuthorizeRequest;
+use PayConn\Request\NestPay\ThreeDModel\ThreeDPay\AuthorizeRequest;
 use PayConn\Model\NestPay\Banks\AkBank;
 
 // credit card
@@ -15,14 +15,13 @@ $creditCard->setExpiryYear('2018');
 $creditCard->setCvv('000');
 
 // purchase
-$model = new Authorize(new AkBank(),'100300000','AKTESTAPI','AKBANK01');
+$model = new Authorize(new AkBank(),'100200000','AKTESTAPI','AKBANK01');
 $model->setCreditCard($creditCard);
 $model->setPrice(10);
 $model->setInstallment(1);
 $model->setType(Authorize::TYPE_AUTH);
-$model->setStoreType(Authorize::STORE_TYPE_3D_PAY_HOSTING);
-$model->setSuccessUrl('http://www.payconn.mil/samples/nest-pay/ak-bank/complete.php');
-$model->setFailureUrl('http://www.payconn.mil/samples/nest-pay/ak-bank/complete.php');
+$model->setSuccessUrl('http://www.payconn.mil/samples/nest-pay/three_d_model/three_d_pay/complete.php');
+$model->setFailureUrl('http://www.payconn.mil/samples/nest-pay/three_d_model/three_d_pay/complete.php');
 $model->setStoreKey('123456');
 $model->setCurrency(AkBank::CURRENCY_TRY);
 $model->setTestMode(true);

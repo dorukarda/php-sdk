@@ -15,13 +15,6 @@ class Complete extends AbstractModel
      *
      * @Assert\NotBlank
      */
-    protected $storeType;
-
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank
-     */
     protected $storeKey;
 
     /**
@@ -84,21 +77,5 @@ class Complete extends AbstractModel
     public function setType($type)
     {
         $this->type = $type;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStoreType()
-    {
-        return $this->storeType;
-    }
-
-    /**
-     * @param string $storeType
-     */
-    public function setStoreType($storeType)
-    {
-        $this->storeType = $storeType;
     }
 }
