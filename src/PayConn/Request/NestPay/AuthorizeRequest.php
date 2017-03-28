@@ -43,7 +43,7 @@ class AuthorizeRequest extends AbstractRequest
             'success_url' => $this->getModel()->getSuccessUrl(),
             'failure_url' => $this->getModel()->getFailureUrl(),
             'type' => $this->getModel()->getType(),
-            'installment' => $this->getModel()->getInstallment(),
+            'installment' => $this->getInstallment(),
             'store_type' => $this->getModel()->getStoreType(),
             'random' => $random,
             'hash' => $this->createHash('', $random),
@@ -82,9 +82,26 @@ class AuthorizeRequest extends AbstractRequest
      */
     private function createHash($orderId, $random)
     {
-        $hashData = $this->getModel()->getClientId() . $orderId . $this->getModel()->getPrice() . $this->getModel()->getSuccessUrl() . $this->getModel()->getFailureUrl() . $random . $this->getModel()->getStoreKey();
-        $hash = base64_encode(pack('H*', sha1($hashData)));
+        if($this->getModel()->getStoreType() === Authorize::STORE_TYPE_3D){
+            $hashData = $this->getModel()->getClientId() . $orderId . $this->getModel()->getPrice() . $this->getModel()->getSuccessUrl() . $this->getModel()->getFailureUrl() . $random . $this->getModel()->getStoreKey();
+            $hash = base64_encode(pack('H*', sha1($hashData)));
+        }else{
+            $hashData = $this->getModel()->getClientId() . $orderId . $this->getModel()->getPrice() . $this->getModel()->getSuccessUrl() . $this->getModel()->getFailureUrl() . $this->getModel()->getType() . $this->getInstallment() . $random . $this->getModel()->getStoreKey();
+            $hash = base64_encode(pack('H*', sha1($hashData)));
+        }
 
         return $hash;
+    }
+
+    /**
+     * Get installment
+     * @return int|string
+     */
+    private function getInstallment()
+    {
+        if($this->getModel()->getInstallment() == 1){
+            return "";
+        }
+        return $this->getModel()->getInstallment();
     }
 }

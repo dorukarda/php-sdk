@@ -98,7 +98,7 @@ class CompleteRequest extends AbstractRequest
     public function send()
     {
         if ($this->getModel()->getStoreType() !== Authorize::STORE_TYPE_3D) {
-            return new CompleteResponse(['Response' => 'Approved', 'OrderId' => $this->getPostParam('oid')]);
+            return new CompleteResponse(['Response' => 'Approved', 'OrderId' => $this->getPostParam('ReturnOid')]);
         }
         $xml = $this->prepare();
         $response = $this->request($xml);
