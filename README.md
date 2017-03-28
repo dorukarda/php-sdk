@@ -21,14 +21,14 @@ The following gateways are available:
 Gateway | Purchase | Cancel | Refund | Query | 3D
 --- | --- | --- | --- | --- | ---
 [iyzico](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-[Ak Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: | :white_check_mark:
-[TEB (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: | :white_check_mark:
-[ING Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: | :white_check_mark:
-[HSBC (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: | :white_check_mark:
-[Anadolu Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: | :white_check_mark:
-[Finans Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: | :white_check_mark:
-[Kuveyt Türk (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: | :white_check_mark:
-[Halk Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: | :white_check_mark:
-[IS Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: | :white_check_mark:
-[Ziraat Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :ballot_box_with_check: | :white_check_mark:
+[Ak Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | (3D, 3D Pay, 3D Pay Hosting) :white_check_mark:
+[TEB (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+[ING Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+[HSBC (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+[Anadolu Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+[Finans Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+[Kuveyt Türk (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+[Halk Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+[IS Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+[Ziraat Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
 
