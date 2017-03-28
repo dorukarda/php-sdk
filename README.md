@@ -21,7 +21,7 @@ The following gateways are available:
 Gateway | Purchase | Cancel | Refund | Query | 3D
 --- | --- | --- | --- | --- | ---
 [iyzico](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-[Ak Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | (3D, 3D Pay, 3D Pay Hosting) :white_check_mark:
+[Ak Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: (**3D **3D Pay **3D Pay Hosting)
 [TEB (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
 [ING Bank (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
 [HSBC (NestPay)](https://github.com/payconn/php-sdk) | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
